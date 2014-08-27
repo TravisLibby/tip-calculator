@@ -2,6 +2,17 @@ var baseCost;
 var taxPercentage;
 var tipPercentage;
 
+var parsePromptInput = function(formInput, isPercent) {
+  formInput = parseFloat(formInput);
+  formInput = formInput.toFixed(2);
+  if (isPercent) {
+    formInput /= 100;
+  }
+  formInput = parseFloat(formInput);
+  formInput = formInput.toFixed(2);
+  return Number(formInput);
+};
+
 while (typeof baseCost === 'undefined' || baseCost === '' || isNaN(baseCost)) {
   baseCost = prompt('Please enter the base cost of your meal.');
   baseCost = parsePromptInput(baseCost, false);
@@ -17,27 +28,15 @@ while (typeof tipPercentage === 'undefined' || tipPercentage === '' || isNaN(tip
   tipPercentage = parsePromptInput(tipPercentage, true);
 }
 
-function parsePromptInput(formInput, isPercent) {
-  formInput = parseFloat(formInput);
-  formInput = formInput.toFixed(2);
-  if (isPercent) {
-    formInput /= 100;
-  }
-  return formInput;
-}
+var baseCostPlusTax = baseCost + (baseCost * taxPercentage);
+var tipAmt = baseCostPlusTax * tipPercentage;
+var totalCost = baseCostPlusTax + tipAmt;
+console.log('Tax: ' + (baseCost * taxPercentage).toFixed(2));
+console.log(baseCostPlusTax.toFixed(2));
+console.log(tipAmt.toFixed(2));
+console.log(totalCost.toFixed(2));
 
-console.log(typeof baseCost);
-console.log(baseCost);
-
-console.log(typeof taxPercentage);
-console.log(taxPercentage);
-
-console.log(typeof tipPercentage);
-console.log(tipPercentage);
-
-var baseCostPlusTaxes = baseCost + (baseCost * taxPercentage);
-console.log(baseCostPlusTaxes);
-
+alert('Base Cost with Tax: ' + baseCostPlusTax.toFixed(2) + '\n' + 'Tip Amount: ' + tipAmt.toFixed(2) + '\n' + 'Total Cost: ' + totalCost.toFixed(2));
 
 
 
